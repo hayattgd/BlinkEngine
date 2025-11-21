@@ -29,5 +29,5 @@ Run `cmake ..` to copy `res/` to `build/res/`
 
 ## Dependencies
 - [glad](lib/glad/)
-- [glm](lib/glm/)
+- glm
 - OpenGL (from `/usr/include/GL/`)
