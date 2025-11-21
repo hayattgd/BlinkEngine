@@ -32,5 +32,5 @@ use `.cc` for C++, `.h` for header.
 # Namespace
 
 It's basically path to source,
- - `src/render/mesh.h` -> BlinkEngine::Render
- - `src/foo/bar/code.cc` -> BlinkEngine::Foo::Bar
+ - `src/render/mesh.h` -> `BlinkEngine::Render`
+ - `src/foo/bar/code.cc` -> `BlinkEngine::Foo::Bar`
