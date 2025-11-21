@@ -8,9 +8,9 @@ currently it only draws triangle and nothing more than it -_-
 
 ## Todo
 
-[x] Draw a triangle
-[ ] Add camera (FPS camera)
-[ ] Load .obj to Mesh
+- [x] Draw a triangle
+- [ ] Add camera (FPS camera)
+- [ ] Load .obj to Mesh
 ...add more later
 
 ## Build
