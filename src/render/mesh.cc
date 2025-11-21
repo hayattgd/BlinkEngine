@@ -7,7 +7,7 @@
 #include "glad/glad.h"
 #include <GL/gl.h>
 #include <GL/glext.h>
-#include <glm/ext/scalar_uint_sized.hpp>
+#include "glm/ext/scalar_uint_sized.hpp"
 
 namespace BlinkEngine::Render {
   Mesh::Mesh(std::vector<Vertex> vertices, std::vector<glm::uint32> indices, std::vector<Texture> textures) {

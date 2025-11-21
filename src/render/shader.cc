@@ -7,7 +7,7 @@
 #include "glad/glad.h"
 #include <GL/glext.h>
 #include <GL/gl.h>
-#include <glm/ext/scalar_uint_sized.hpp>
+#include "glm/ext/scalar_uint_sized.hpp"
 
 #include "src/fs.h"
 

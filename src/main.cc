@@ -1,9 +1,8 @@
 #include <iostream>
 
 #include "glad/glad.h"
-#include <GLFW/glfw3.h>
-#include <glm/detail/qualifier.hpp>
-#include <glm/ext/vector_float3.hpp>
+#include "GLFW/glfw3.h"
+#include "glm/ext/vector_float3.hpp"
 
 #include "render/mesh.h"
 #include "render/shader.h"

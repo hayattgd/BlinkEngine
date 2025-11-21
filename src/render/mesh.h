@@ -3,9 +3,9 @@
 #include <string>
 #include <vector>
 
-#include <glm/vec3.hpp>
-#include <glm/vec2.hpp>
-#include <glm/ext/scalar_uint_sized.hpp>
+#include "glm/ext/scalar_uint_sized.hpp"
+#include "glm/ext/vector_float3.hpp"
+#include "glm/ext/vector_float2.hpp"
 
 namespace BlinkEngine::Render {
   struct Vertex {
