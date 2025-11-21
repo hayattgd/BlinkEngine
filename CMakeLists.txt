@@ -3,14 +3,12 @@ project(engine)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-find_package(glfw3 REQUIRED)
-find_package(glm REQUIRED)
-
 set(GLAD_DIR lib/glad)
 add_subdirectory(${GLAD_DIR})
 target_include_directories(glad PUBLIC ${GLAD_DIR}/include)
 
-find_package(glm CONFIG REQUIRED)
+add_subdirectory(lib/glfw)
+add_subdirectory(lib/glm)
 
 add_executable(
   engine
