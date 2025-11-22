@@ -4,13 +4,14 @@ Distributed under [MIT License](LICENSE)
 
 (it will be) My own game engine made with C++ and OpenGL
 
-currently it only draws triangle and nothing more than it -_-
-
 ## Todo
 
 - [x] Draw a triangle
-- [ ] Add camera (FPS camera)
-- [ ] Load .obj to Mesh
+- [x] Add camera (FPS camera)
+- [x] Load .obj to Mesh
+- [ ] Do some physics
+- [ ] Add editor UI
+- [ ] Lua scripting
 ...add more later
 
 ## Build
