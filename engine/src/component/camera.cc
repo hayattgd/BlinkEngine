@@ -43,4 +43,9 @@ namespace BlinkEngine::Engine::Component {
     UpdateDirection();
     return glm::normalize(glm::cross(front, glm::vec3(0, 1, 0)));
   }
+
+  glm::vec3 Camera::GetUp() {
+    UpdateDirection();
+    return glm::normalize(glm::cross(GetRight(), front));
+  }
 }

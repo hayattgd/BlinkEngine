@@ -111,10 +111,10 @@ int main() {
       cam->position += cam->GetRight() * dt * 10.0f;
     }
     if (glfwGetKey(window, GLFW_KEY_E)) {
-      cam->position += glm::vec3(0, 1, 0) * dt * 10.0f;
+      cam->position += cam->GetUp() * dt * 10.0f;
     }
     if (glfwGetKey(window, GLFW_KEY_Q)) {
-      cam->position -= glm::vec3(0, 1, 0) * dt * 10.0f;
+      cam->position -= cam->GetUp() * dt * 10.0f;
     }
     cam->UpdateDirection();
 

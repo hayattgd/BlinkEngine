@@ -1,7 +1,6 @@
 set(
   BLINKENGINE_SRC
   engine/src/render/mesh.cc
-  engine/src/render/glrenderer.cc
   engine/src/render/shader.cc
   engine/src/fs.cc
   engine/src/component/camera.cc
