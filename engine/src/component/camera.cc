@@ -1,4 +1,4 @@
-#include "src/camera.h"
+#include "component/camera.h"
 
 #include <cmath>
 
@@ -8,7 +8,7 @@
 #include "glm/trigonometric.hpp"
 #include "glm/ext/vector_float3.hpp"
 
-namespace BlinkEngine {
+namespace BlinkEngine::Engine::Component {
   Camera::Camera(glm::vec3 pos, float yaw, float pitch, float fov, float nearPlane, float farPlane) {
     this->position = pos;
     this->yaw = yaw;

@@ -4,7 +4,7 @@
 
 #include "glm/ext/scalar_uint_sized.hpp"
 
-namespace BlinkEngine::Render {
+namespace BlinkEngine::Engine::Render {
   class Shader {
     public:
       Shader(std::string vertpath, std::string fragpath);

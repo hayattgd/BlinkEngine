@@ -1,27 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
-project(engine)
+project(BlinkEngine VERSION 0.1.0 LANGUAGES C CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(GLAD_DIR lib/glad)
-add_subdirectory(${GLAD_DIR})
-target_include_directories(glad PUBLIC ${GLAD_DIR}/include)
-
-add_subdirectory(lib/glfw)
-add_subdirectory(lib/glm)
-
-add_executable(
-  engine
-  src/main.cc
-  src/render/mesh.cc
-  src/render/shader.cc
-  src/fs.cc
-  src/camera.cc
-  src/obj_loader.cc
-)
-
-target_include_directories(engine PUBLIC .)
-
-target_link_libraries(engine glad glfw glm ${CMAKE_DL_LIBS})
+include(cmake/Engine.cmake)
+include(cmake/Editor.cmake)
 
 file(COPY res DESTINATION .)

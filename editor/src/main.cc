@@ -7,11 +7,13 @@
 
 #include "render/mesh.h"
 #include "render/shader.h"
-#include "src/camera.h"
-#include "src/obj_loader.h"
+#include "component/camera.h"
+#include "import/obj_loader.h"
 
-using namespace BlinkEngine;
-using namespace BlinkEngine::Render;
+using namespace BlinkEngine::Engine;
+using namespace BlinkEngine::Engine::Render;
+using namespace BlinkEngine::Engine::Component;
+using namespace BlinkEngine::Engine::Import;
 
 double lastX = 0, lastY = 0;
 float xoffset = 0, yoffset = 0;

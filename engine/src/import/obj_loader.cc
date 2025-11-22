@@ -8,9 +8,9 @@
 #include "glm/ext/vector_float3.hpp"
 #include "render/mesh.h"
 
-using namespace BlinkEngine::Render;
+using namespace BlinkEngine::Engine::Render;
 
-namespace BlinkEngine {
+namespace BlinkEngine::Engine::Import {
   bool LoadObj(const std::string& path, Mesh** out) {
     std::ifstream input(path);
     if (!input.is_open()) {

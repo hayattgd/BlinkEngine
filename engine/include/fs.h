@@ -1,5 +1,5 @@
 #include <string>
 
-namespace BlinkEngine {
+namespace BlinkEngine::Engine {
   std::string ReadFile(std::string path);
 }

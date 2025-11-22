@@ -7,7 +7,7 @@
 #include "glm/ext/vector_float3.hpp"
 #include "glm/ext/vector_float2.hpp"
 
-namespace BlinkEngine::Render {
+namespace BlinkEngine::Engine::Render {
   struct Vertex {
     glm::vec3 position;
     glm::vec3 normal;

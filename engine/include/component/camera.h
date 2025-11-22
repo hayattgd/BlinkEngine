@@ -3,7 +3,7 @@
 #include <glm/fwd.hpp>
 #include <glm/ext/vector_float3.hpp>
 
-namespace BlinkEngine {
+namespace BlinkEngine::Engine::Component {
   class Camera {
     public:
       Camera(glm::vec3 pos, float yaw, float pitch, float fov, float nearPlane, float farPlane);

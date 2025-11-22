@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 
-namespace BlinkEngine {
+namespace BlinkEngine::Engine {
   std::string ReadFile(std::string path) {
     std::string source = "";
     std::string line;

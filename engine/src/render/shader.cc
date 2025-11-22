@@ -1,4 +1,4 @@
-#include "shader.h"
+#include "render/shader.h"
 
 #include <cstddef>
 #include <iostream>
@@ -9,9 +9,9 @@
 #include <GL/gl.h>
 #include "glm/ext/scalar_uint_sized.hpp"
 
-#include "src/fs.h"
+#include "fs.h"
 
-namespace BlinkEngine::Render {
+namespace BlinkEngine::Engine::Render {
   bool get_shader_compile_error(glm::uint32 shader) {
     int success;
     char info_log[512];

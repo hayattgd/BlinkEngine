@@ -1,4 +1,4 @@
-#include "mesh.h"
+#include "render/mesh.h"
 
 #include <cstddef>
 #include <string>
@@ -9,7 +9,7 @@
 #include <GL/glext.h>
 #include "glm/ext/scalar_uint_sized.hpp"
 
-namespace BlinkEngine::Render {
+namespace BlinkEngine::Engine::Render {
   Mesh::Mesh(std::vector<Vertex> vertices, std::vector<glm::uint32> indices, std::vector<Texture> textures) {
     this->vertices = vertices;
     this->indices = indices;
