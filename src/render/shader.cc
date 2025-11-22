@@ -82,6 +82,10 @@ namespace BlinkEngine::Render {
     id = shader_program;
   }
 
+  glm::uint32 Shader::GetId() {
+    return id;
+  }
+
   void Shader::Use() {
     glUseProgram(id);
   }

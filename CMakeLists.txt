@@ -16,6 +16,8 @@ add_executable(
   src/render/mesh.cc
   src/render/shader.cc
   src/fs.cc
+  src/camera.cc
+  src/obj_loader.cc
 )
 
 target_include_directories(engine PUBLIC .)

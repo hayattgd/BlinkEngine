@@ -9,6 +9,7 @@ namespace BlinkEngine::Render {
     public:
       Shader(std::string vertpath, std::string fragpath);
       void Use();
+      glm::uint32 GetId();
       void Compile();
     private:
       std::string vert;

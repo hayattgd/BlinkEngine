@@ -3,11 +3,33 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 #include "glm/ext/vector_float3.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 #include "render/mesh.h"
 #include "render/shader.h"
+#include "src/camera.h"
+#include "src/obj_loader.h"
 
+using namespace BlinkEngine;
 using namespace BlinkEngine::Render;
+
+double lastX = 0, lastY = 0;
+float xoffset = 0, yoffset = 0;
+float lastTime = 0.0f;
+bool firstMouse = true;
+
+void MouseHandler(GLFWwindow* window, double xpos, double ypos) {
+  if (firstMouse) {
+    lastX = xpos;
+    lastY = ypos;
+    firstMouse = false;
+  }
+
+  xoffset = xpos - lastX;
+  yoffset = ypos - lastY;
+  lastX = xpos;
+  lastY = ypos;
+}
 
 void KeyHandler(GLFWwindow* window, int key, int scancode, int action,
                  int mods) {
@@ -30,6 +52,7 @@ int main() {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+  glfwWindowHint(GLFW_DEPTH_BITS, 24);
   GLFWwindow* window = glfwCreateWindow(800, 600, "title", nullptr, nullptr);
   if (!window) {
     std::cerr << "\033[31mGLFWwindow failed to initialize" << std::endl;
@@ -39,51 +62,79 @@ int main() {
   glfwMakeContextCurrent(window);
   glfwSetKeyCallback(window, KeyHandler);
   glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
+  glfwSetCursorPosCallback(window, MouseHandler);
   if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
     std::cerr << "\033[31mGLAD failed to initialize" << std::endl;
     return -1;
   }
 
-  Vertex v1;
-  v1.position = glm::vec3(-0.5f, -0.5f, 0.0f); //bottom left
-  v1.normal = glm::vec3(0.0f, 0.0f, 1.0f);
-  v1.uv = glm::vec2(0.0f, 0.0f);
-
-  Vertex v2;
-  v2.position = glm::vec3(0.5f, -0.5f, 0.0f); //bottom right
-  v2.normal = glm::vec3(0.0f, 0.0f, 1.0f);
-  v2.uv = glm::vec2(1.0f, 0.0f);
-
-  Vertex v3;
-  v3.position = glm::vec3(0.0f, 0.5f, 0.0f);
-  v3.normal = glm::vec3(0.0f, 0.0f, 1.0f);
-  v3.uv = glm::vec2(0.5f, 1.0f);
-
-  Mesh* m = new Mesh(
-    {v1, v2, v3},
-    {0, 1, 2},
-    {}
-  );
-
-  Shader* s = new Shader(
+  Shader* shader = new Shader(
     "res/default.vert",
-    "res/uv_test.frag"
+    "res/simple.frag"
   );
-  s->Compile();
+  shader->Compile();
 
+  Mesh* mesh;
+  LoadObj("res/Cubes.obj", &mesh);
+
+  Camera* cam = new Camera(glm::vec3(0, 0, -2), 0, 0, 70, 0.01f, 1000);
+
+  glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+  glEnable(GL_DEPTH_TEST);
+  glDepthFunc(GL_LESS);
   while (!glfwWindowShouldClose(window)) {
+    float t = glfwGetTime();
+    float dt = t - lastTime;
+    lastTime = t;
+    int width;
+    int height;
+    glfwGetWindowSize(window, &width, &height);
+    cam->width = width;
+    cam->height = height;
+
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    s->Use();
-    m->Draw();
+    if (glfwGetKey(window, GLFW_KEY_W)) {
+      cam->position += cam->GetFront() * dt * 10.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_A)) {
+      cam->position -= cam->GetRight() * dt * 10.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_S)) {
+      cam->position -= cam->GetFront() * dt * 10.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_D)) {
+      cam->position += cam->GetRight() * dt * 10.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_E)) {
+      cam->position += glm::vec3(0, 1, 0) * dt * 10.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_Q)) {
+      cam->position -= glm::vec3(0, 1, 0) * dt * 10.0f;
+    }
+    cam->UpdateDirection();
 
+    cam->yaw += xoffset * 0.45f;
+    cam->pitch -= yoffset * 0.45f;
+
+    shader->Use();
+    GLuint viewloc = glGetUniformLocation(shader->GetId(), "view");
+    glUniformMatrix4fv(viewloc, 1, GL_FALSE, glm::value_ptr(cam->GetViewMatrix()));
+    GLuint projloc = glGetUniformLocation(shader->GetId(), "projection");
+    glUniformMatrix4fv(projloc, 1, GL_FALSE, glm::value_ptr(cam->GetProjectionMatrix()));
+    mesh->Draw();
+
+    xoffset = 0;
+    yoffset = 0;
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
 
-  delete m;
-  delete s;
+  delete cam;
+  delete mesh;
+  delete shader;
 
   glfwTerminate();
 }
