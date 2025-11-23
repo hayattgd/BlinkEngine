@@ -32,7 +32,8 @@ cmake --build .
 Run `cmake ..` to copy `res/` to `build/res/`
 
 ## Dependencies
+- [Dear ImGui (docking)](https://github.com/ocornut/imgui/tree/docking)
 - [glad](engine/thirdparty/glad/)
-- glm
-- glfw
+- [glm](https://github.com/g-trunc/glm)
+- [glfw](https://github.com/glfw/glfw)
 - OpenGL (from `/usr/include/GL/`)
