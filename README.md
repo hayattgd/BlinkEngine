@@ -9,7 +9,7 @@ Distributed under [MIT License](LICENSE)
 - [x] Draw a triangle
 - [x] Add camera (FPS camera)
 - [x] Load .obj to Mesh
-- [ ] Split main() and Editor class
+- [x] Split main() and Editor class
 - [ ] Implement basic classes (Entity, Component, Transform...)
 - [ ] Add editor UI
 - [ ] Do some physics
