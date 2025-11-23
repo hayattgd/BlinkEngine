@@ -6,6 +6,7 @@
 #include "GLFW/glfw3.h"
 #include "glm/ext/vector_float2.hpp"
 #include "glm/ext/vector_int2.hpp"
+
 #include "input/mouse.h"
 
 namespace BlinkEngine::Engine {
@@ -54,6 +55,8 @@ namespace BlinkEngine::Engine {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+
+    imgui_implglfw
 
     mouse = new Input::Mouse();
   }
