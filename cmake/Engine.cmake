@@ -5,6 +5,8 @@ set(
   engine/src/fs.cc
   engine/src/component/camera.cc
   engine/src/import/obj_loader.cc
+  engine/src/application.cc
+  engine/src/input/mouse.cc
 )
 
 add_subdirectory(engine/thirdparty/glad)
