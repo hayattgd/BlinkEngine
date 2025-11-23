@@ -14,6 +14,7 @@ Distributed under [MIT License](LICENSE)
 - [ ] Implement basic classes (Entity, Component, Transform...)
 - [ ] Do some physics
 - [ ] Lua scripting
+
 ...add more later
 
 ## Build
