@@ -5,11 +5,11 @@ Also, feel free to make new issues and PRs :)
 Prefer using commit prefix like `feat:` and `fix:` though it's not necessary.
 
 # Naming
-Abbreviations are ok as long as they are well-known, just don't make it UPPERCASE.
+Abbreviations are ok as long as they are well-known.
 
 e.g.
- - ❌️`int GetCurrentFPS();`
- - ✅️`int GetCurrentFps();`
+ - `int GetCurrentFPS();`
+ - `void InitializeGL();`
 
 ## UPPERCASE
 - Constants
