@@ -78,7 +78,7 @@ namespace BlinkEngine::Engine::Import {
           v.uv = uv[ti-1];
           v.normal = normal[ni-1];
 
-          vertices.emplace_back(v);
+          vertices.push_back(v);
           indices.emplace_back(vertices.size()-1);
         }
       }
