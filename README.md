@@ -10,8 +10,9 @@ Distributed under [MIT License](LICENSE)
 - [x] Add camera (FPS camera)
 - [x] Load .obj to Mesh
 - [x] Split main() and Editor class
-- [ ] Add editor UI
-- [ ] Implement basic classes (Entity, Component, Transform...)
+- [x] Add editor UI
+- [x] Implement basic classes (Entity, Component, Transform...)
+- [ ] Make it able to edit world and its properties
 - [ ] Do some physics
 - [ ] Lua scripting
 

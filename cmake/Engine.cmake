@@ -4,10 +4,12 @@ set(
   engine/src/render/shader.cc
   engine/src/fs.cc
   engine/src/component/camera.cc
-  engine/src/import/obj_loader.cc
+  engine/src/import/objloader.cc
   engine/src/application.cc
   engine/src/input/mouse.cc
   engine/src/gui/windowmanager.cc
+  engine/src/ecs/world.cc
+  engine/src/component/meshrenderer.cc
 )
 
 add_subdirectory(engine/thirdparty/glad)

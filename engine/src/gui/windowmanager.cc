@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <string>
 #include <utility>
 
 #include "gui/iwindow.h"
@@ -13,14 +14,21 @@ namespace BlinkEngine::Engine::Gui {
   }
 
   void WindowManager::RenderAll() {
+    int i = 0;
     for (auto& w : windows) {
       bool open = true;
-      ImGui::Begin(w->GetName(), &open);
-      w->Render();
+      ImGui::PushID(i);
+      std::string name(w->GetName());
+      std::string name_with_id(name + "##" + std::to_string(i));
+      if (ImGui::Begin(name_with_id.c_str(), &open)) {
+        w->Render();
+      }
       ImGui::End();
+      ImGui::PopID();
       if (!open) {
         w->Close();
       }
+      i++;
     }
 
     windows.erase(
