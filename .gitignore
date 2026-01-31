@@ -2,3 +2,7 @@ build/
 .cache/
 .zed/
 .vscode/
+
+target/
+
+imgui.ini
