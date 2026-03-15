@@ -1,5 +1,6 @@
 #include "application.h"
 
+
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -189,18 +190,6 @@ void Application::KeyHandler(GLFWwindow *window, int key, int scancode,
                              int action, int mods) {
   if (ImGui::GetIO().WantCaptureKeyboard) {
     return;
-  }
-  switch (key) {
-  case GLFW_KEY_ESCAPE:
-    if (action == GLFW_PRESS) {
-      EnableCursor();
-    }
-    break;
-  case GLFW_KEY_SPACE:
-    if (action == GLFW_PRESS) {
-      DisableCursor();
-    }
-    break;
   }
 }
 
