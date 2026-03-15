@@ -20,6 +20,7 @@ Application::Application(int width, int height, const char *title) {
   fbwidth = width;
   fbheight = height;
   // GLFW Initialization
+  // glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
@@ -28,7 +29,7 @@ Application::Application(int width, int height, const char *title) {
   glfwWindowHint(GLFW_DEPTH_BITS, 24);
   window = glfwCreateWindow(width, height, title, nullptr, nullptr);
   if (!window) {
-    std::cerr << "\033[31mGLFWwindow failed to initialize" << std::endl;
+    std::cerr << "\033[31mGLFWwindow failed to initialize\033[0m" << std::endl;
     glfwTerminate();
     return;
   }
@@ -82,6 +83,10 @@ Application::Application(int width, int height, const char *title) {
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
+  glEnable(GL_CULL_FACE);
+  glCullFace(GL_BACK);
+  glFrontFace(GL_CCW);
+
   mouse = new Input::Mouse();
   world = new ECS::World();
 }
@@ -106,6 +111,10 @@ void Application::Exit() { glfwSetWindowShouldClose(window, GLFW_TRUE); }
 
 bool Application::IsRunning() {
   if (!glfwWindowShouldClose(window)) {
+    auto error = glGetError();
+    if (error) {
+      std::cerr << error << std::endl;
+    }
     glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     ImGui_ImplOpenGL3_NewFrame();

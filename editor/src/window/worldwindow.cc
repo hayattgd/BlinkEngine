@@ -8,6 +8,7 @@
 #include "component/camera.h"
 #include "import/obj_loader.h"
 #include "render/mesh.h"
+#include "render/shader.h"
 
 namespace BlinkEngine::Editor::Window {
 WorldWindow::WorldWindow() {
@@ -24,14 +25,17 @@ void WorldWindow::Render() {
     auto &world = Engine::Application::GetInstance().GetWorld();
     auto *meshrenderer = new Engine::Component::MeshRenderer();
     Engine::Render::Mesh *mesh;
-    Engine::Import::LoadObj(path, &mesh);
+    Engine::Import::LoadObj(path.data(), &mesh);
     meshrenderer->SetMesh(mesh);
+    Engine::Render::Shader *shader = new Engine::Render::Shader("res/default.vert", "res/simple.frag");
+    shader->Compile();
+    meshrenderer->SetShader(shader);
     world.AddComponent(world.NewEntity(), meshrenderer);
   }
 
   if (ImGui::Button("Add Camera")) {
     auto &world = Engine::Application::GetInstance().GetWorld();
-    auto *camera = new Engine::Component::Camera(glm::vec3(0, 0, 0), 0, 0, 60, 0.01f, 1000);
+    auto *camera = new Engine::Component::Camera(glm::vec3(0, 0, 0), 0, 0, 60, 0.1f, 100.0f);
     world.AddComponent(world.NewEntity(), camera);
   }
 }

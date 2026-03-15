@@ -9,6 +9,8 @@
 #include <GL/glext.h>
 #include "glm/ext/scalar_uint_sized.hpp"
 
+#include "render/shader.h"
+
 namespace BlinkEngine::Engine::Render {
   Mesh::Mesh(std::vector<Vertex> vertices, std::vector<glm::uint32> indices, std::vector<Texture> textures) {
     this->vertices = vertices;
@@ -39,7 +41,7 @@ namespace BlinkEngine::Engine::Render {
     glEnableVertexAttribArray(2);
   }
 
-  void Mesh::Draw() {
+  void Mesh::Draw(Render::Shader* shader) {
     glm::uint32 diffuse_nr = 1;
     glm::uint32 specular_nr = 1;
     for (unsigned int i = 0; i < textures.size(); i++) {
@@ -56,7 +58,9 @@ namespace BlinkEngine::Engine::Render {
       glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }
     glActiveTexture(GL_TEXTURE0);
-    glEnableClientState(GL_VERTEX_ARRAY);
+    // glEnableClientState(GL_VERTEX_ARRAY);
+    
+    shader->Use();
 
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

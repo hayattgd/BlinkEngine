@@ -53,26 +53,26 @@ template <typename T>
 
 std::shared_ptr<IComponentStorage>& GetOrCreateComponentStorage()
 {
-  std::cout << "[before] this=" << this
-            << " &components=" << &components
-            << " size=" << components.size()
-            << "\n";
+  // std::cout << "[before] this=" << this
+  //           << " &components=" << &components
+  //           << " size=" << components.size()
+  //           << "\n";
 
   auto [it, inserted] = components.try_emplace(
     std::type_index(typeid(T)),
     std::make_shared<ComponentStorage<T>>()
   );
 
-  std::cout << "[after ] inserted=" << inserted
-            << " size=" << components.size()
-            << " key=" << it->first.name()
-            << " value=" << it->second.get()
-            << "\n";
+  // std::cout << "[after ] inserted=" << inserted
+  //           << " size=" << components.size()
+  //           << " key=" << it->first.name()
+  //           << " value=" << it->second.get()
+  //           << "\n";
 
   // 念のため本当に入ってるか
-  auto f = components.find(std::type_index(typeid(T)));
-  std::cout << "[find  ] " << (f != components.end())
-            << "\n";
+  // auto f = components.find(std::type_index(typeid(T)));
+  // std::cout << "[find  ] " << (f != components.end())
+  //           << "\n";
 
   return it->second;
 }

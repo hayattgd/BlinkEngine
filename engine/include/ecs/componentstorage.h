@@ -19,26 +19,26 @@ public:
   }
 
   void AddComponent(Entity entity, T* component) {
-    std::cout << "[before] this=" << this
-              << " &components=" << &components
-              << " size=" << components.size()
-              << "\n";
+    // std::cout << "[before] this=" << this
+    //           << " &components=" << &components
+    //           << " size=" << components.size()
+    //           << "\n";
 
     auto [it, inserted] = components.try_emplace(
       entity,
       component
     );
 
-    std::cout << "[after ] inserted=" << inserted
-              << " size=" << components.size()
-              << " key=" << it->first
-              << " value=" << it->second
-              << "\n";
+    // std::cout << "[after ] inserted=" << inserted
+    //           << " size=" << components.size()
+    //           << " key=" << it->first
+    //           << " value=" << it->second
+              // << "\n";
 
     // 念のため本当に入ってるか
-    auto f = components.find(entity);
-    std::cout << "[find  ] " << (f != components.end())
-              << "\n";
+    // auto f = components.find(entity);
+    // std::cout << "[find  ] " << (f != components.end())
+    //           << "\n";
     }
 
   void RemoveComponent(Entity entity) override { components.erase(entity); }

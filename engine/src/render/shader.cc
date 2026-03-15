@@ -40,6 +40,11 @@ namespace BlinkEngine::Engine::Render {
     id = -1;
   }
 
+  void Shader::UniformBlockBinding(const char* uniform_name, glm::uint32 binding_point) {
+    glm::uint32 index = glGetUniformBlockIndex(id, uniform_name);
+    glUniformBlockBinding(id, index, binding_point);
+  }
+
   void Shader::Compile() {
     glm::uint32 vert_shader;
     vert_shader = glCreateShader(GL_VERTEX_SHADER);
@@ -72,6 +77,7 @@ namespace BlinkEngine::Engine::Render {
     glAttachShader(shader_program, frag_shader);
     glLinkProgram(shader_program);
     if (!get_program_link_error(shader_program)) {
+      std::cerr << "Shader link error!" << std::endl;
       glDeleteProgram(shader_program);
       glDeleteShader(vert_shader);
       glDeleteShader(frag_shader);
@@ -79,6 +85,7 @@ namespace BlinkEngine::Engine::Render {
     }
     glDeleteShader(vert_shader);
     glDeleteShader(frag_shader);
+    std::cout << "Shader id:" << shader_program << std::endl;
     id = shader_program;
   }
 

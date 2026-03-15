@@ -10,7 +10,10 @@ set(
   engine/src/gui/windowmanager.cc
   engine/src/ecs/world.cc
   engine/src/component/meshrenderer.cc
+  engine/src/render/uniformbuffer.cc
 )
+
+add_compile_definitions(_GLFW_X11 _GLFW_WAYLAND)
 
 add_subdirectory(engine/thirdparty/glad)
 add_subdirectory(engine/thirdparty/glfw)

@@ -7,6 +7,8 @@
 #include "glm/ext/vector_float3.hpp"
 #include "glm/ext/vector_float2.hpp"
 
+#include "render/shader.h"
+
 namespace BlinkEngine::Engine::Render {
   struct Vertex {
     glm::vec3 position;
@@ -22,7 +24,7 @@ namespace BlinkEngine::Engine::Render {
   class Mesh {
     public:
       Mesh(std::vector<Vertex> vertices, std::vector<glm::uint32> indices, std::vector<Texture> textures);
-      void Draw();
+      void Draw(Render::Shader* shader);
     private:
       void SetupMesh();
       std::vector<Vertex> vertices;

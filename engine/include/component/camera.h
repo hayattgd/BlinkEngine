@@ -1,5 +1,7 @@
 #pragma once
 
+#include "glm/ext/scalar_uint_sized.hpp"
+#include "render/uniformbuffer.h"
 #include <glm/ext/vector_float3.hpp>
 #include <glm/fwd.hpp>
 
@@ -10,6 +12,7 @@ public:
          float farPlane);
   void UpdateDirection();
   void Render();
+  glm::uint32 GetUniformBufferBindingPoint();
   glm::mat4 GetViewMatrix();
   glm::mat4 GetProjectionMatrix();
   glm::vec3 GetFront();
@@ -26,5 +29,6 @@ public:
 
 private:
   glm::vec3 front;
+  Render::UniformBuffer* ubo;
 };
 } // namespace BlinkEngine::Engine::Component
