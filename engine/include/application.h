@@ -1,10 +1,10 @@
 #pragma once
 
-#include "ecs/world.h"
 #include "glm/ext/vector_int2.hpp"
 #define GLFW_INCLUDE_NONE
 #include "GLFW/glfw3.h"
 
+#include "ecs/world.h"
 #include "input/mouse.h"
 
 namespace BlinkEngine::Engine {

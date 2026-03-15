@@ -5,8 +5,6 @@
 #include <string>
 
 #include "glad/glad.h"
-#include <GL/glext.h>
-#include <GL/gl.h>
 #include "glm/ext/scalar_uint_sized.hpp"
 
 #include "fs.h"
