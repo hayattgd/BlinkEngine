@@ -1,5 +1,7 @@
 #pragma once
+
 #include "glm/ext/scalar_uint_sized.hpp"
+
 namespace BlinkEngine::Engine::Render {
 class UniformBuffer {
 public:
