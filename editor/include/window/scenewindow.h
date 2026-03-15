@@ -1,10 +1,9 @@
 #pragma once
 
-#include "component/camera.h"
 #include "glm/ext/scalar_uint_sized.hpp"
 
+#include "component/camera.h"
 #include "gui/iwindow.h"
-#include "imgui.h"
 
 namespace BlinkEngine::Editor::Window {
 class SceneWindow : public Engine::Gui::IWindow {
@@ -21,7 +20,8 @@ private:
   void ResizeFrameBuffer(int w, int h);
   int width = 1;
   int height = 1;
-  ImVec2 previous_mouse = ImVec2(0.0f, 0.0f);
+  float sensitivity = 0.5f;
+  float speed = 0.1f;
 
   glm::uint32 fbo;
   glm::uint32 colorTex;

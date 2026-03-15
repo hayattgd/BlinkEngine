@@ -1,13 +1,14 @@
 #include "window/scenewindow.h"
 
+#include <algorithm>
+#include <iostream>
+
+#include "glad/glad.h"
+#include "imgui.h"
+
 #include "application.h"
 #include "component/camera.h"
 #include "ecs/world.h"
-#include "glad/glad.h"
-#include "imgui.h"
-#include "imgui_internal.h"
-#include <GL/glext.h>
-#include <iostream>
 
 namespace BlinkEngine::Editor::Window {
 SceneWindow::SceneWindow() {
@@ -68,23 +69,36 @@ const char *SceneWindow::GetName() { return "Scene"; }
 
 void SceneWindow::Render() {
   if (camera != nullptr) {
-    // float rot[2] = {camera->pitch, camera->yaw};
-    // ImGui::SliderFloat2("Rotation", rot, -360.0f, 360.0f);
-    // camera->pitch = rot[0];
-    // camera->yaw = rot[1];
-
-    float pos[3] = {camera->position.x, camera->position.y, camera->position.z};
-    ImGui::SliderFloat3("Position", pos, -10.0f, 10.0f);
-    camera->position.x = pos[0];
-    camera->position.y = pos[1];
-    camera->position.z = pos[2];
-    
-    auto mouse = ImGui::GetMousePos();
-    if (ImGui::IsMouseDown(ImGuiMouseButton_Right)) {
-      camera->yaw += mouse.x - previous_mouse.x;
-      camera->pitch -= mouse.y - previous_mouse.y;
+    auto *mouse = Engine::Application::GetInstance().mouse;
+    auto relative_move = mouse->GetRelativePos();
+    if (ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
+      Engine::Application::GetInstance().DisableCursor();
     }
-    previous_mouse = mouse;
+    if (ImGui::IsMouseDown(ImGuiMouseButton_Right)) {
+      camera->yaw += relative_move.x * sensitivity;
+      camera->pitch -= relative_move.y * sensitivity;
+      camera->pitch = std::clamp(camera->pitch, -89.0f, 89.0f);
+      if (ImGui::IsKeyDown(ImGuiKey_W)) {
+        camera->position += camera->GetFront() * speed;
+      }
+      if (ImGui::IsKeyDown(ImGuiKey_S)) {
+        camera->position -= camera->GetFront() * speed;
+      }
+      if (ImGui::IsKeyDown(ImGuiKey_D)) {
+        camera->position -= camera->GetRight() * speed;
+      }
+      if (ImGui::IsKeyDown(ImGuiKey_A)) {
+        camera->position += camera->GetRight() * speed;
+      }
+      if (ImGui::IsKeyDown(ImGuiKey_E)) {
+        camera->position += camera->GetUp() * speed;
+      }
+      if (ImGui::IsKeyDown(ImGuiKey_Q)) {
+        camera->position -= camera->GetUp() * speed;
+      }
+    } else if (ImGui::IsMouseReleased(ImGuiMouseButton_Right)) {
+      Engine::Application::GetInstance().EnableCursor();
+    }
 
     camera->width = width;
     camera->height = height;
