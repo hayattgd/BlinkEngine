@@ -11,7 +11,6 @@
 
 namespace BlinkEngine::Editor::Window {
 SceneWindow::SceneWindow() {
-  std::cout << "width:" << width << ", height:" << height  << std::endl;
   glGenFramebuffers(1, &fbo);
   glObjectLabel(GL_FRAMEBUFFER, fbo, -1, "scene framebuffer");
   glBindFramebuffer(GL_FRAMEBUFFER, fbo);
