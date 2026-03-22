@@ -1,3 +1,5 @@
+#include "import/obj_loader.h"
+
 #include <algorithm>
 #include <fstream>
 #include <sstream>
@@ -12,12 +14,20 @@
 using namespace BlinkEngine::Engine::Render;
 
 namespace BlinkEngine::Engine::Import {
-bool LoadObj(const std::string &path, Mesh **out) {
+bool LoadObjFromPath(const std::string &path, Mesh **out) {
   std::ifstream input(path);
   if (!input.is_open()) {
     return false;
   }
 
+  std::ostringstream data;
+  data << input.rdbuf();
+  std::string content = data.str();
+
+  return LoadObj(content, out);
+}
+
+bool LoadObj(const std::string &data, BlinkEngine::Engine::Render::Mesh** out) {
   std::vector<glm::vec3> pos;
   std::vector<glm::vec3> normal;
   std::vector<glm::vec2> uv;
@@ -25,7 +35,8 @@ bool LoadObj(const std::string &path, Mesh **out) {
   std::vector<glm::uint32> indices;
 
   std::string line;
-  while (getline(input, line)) {
+  std::istringstream datastr(data);
+  while (getline(datastr, line)) {
     std::istringstream ss(line);
     std::string prefix;
     ss >> prefix;
