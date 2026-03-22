@@ -27,7 +27,10 @@ Camera::Camera(glm::vec3 pos, float yaw, float pitch, float fov,
   this->fov = fov;
   this->nearPlane = nearPlane;
   this->farPlane = farPlane;
-  this->ubo = new Render::UniformBuffer(sizeof(glm::mat4)*2, 1);
+
+  binding_point = last_binding_point;
+  last_binding_point++;
+  this->ubo = new Render::UniformBuffer(sizeof(glm::mat4)*2, binding_point);
 }
 
 void Camera::UpdateDirection() {
@@ -51,7 +54,7 @@ void Camera::Render() {
 }
 
 glm::uint32 Camera::GetUniformBufferBindingPoint() {
-  return 1;
+  return binding_point;
 }
 
 glm::mat4 Camera::GetViewMatrix() {
