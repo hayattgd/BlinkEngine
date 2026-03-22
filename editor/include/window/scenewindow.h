@@ -17,6 +17,7 @@ public:
 
 private:
   bool isopen = true;
+  bool looking = false;
   void ResizeFrameBuffer(int w, int h);
   int width = 1;
   int height = 1;

@@ -8,7 +8,6 @@
 
 #include "application.h"
 #include "component/camera.h"
-#include "ecs/world.h"
 
 namespace BlinkEngine::Editor::Window {
 SceneWindow::SceneWindow() {
@@ -56,24 +55,51 @@ SceneWindow::SceneWindow() {
 
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-  camera = nullptr;
+  camera = new Engine::Component::Camera(glm::vec3(0, 0, 0), 0, 0, 80.0f, 0.01f, 1000.0f);
 }
 
 SceneWindow::~SceneWindow() {
   glDeleteRenderbuffers(1, &rbo);
   glDeleteTextures(1, &colorTex);
   glDeleteFramebuffers(1, &fbo);
+  delete camera;
 }
 
 const char *SceneWindow::GetName() { return "Scene"; }
 
 void SceneWindow::Render() {
-  if (camera != nullptr) {
-    auto *mouse = Engine::Application::GetInstance().mouse;
-    auto relative_move = mouse->GetRelativePos();
+  auto cursorpos = ImGui::GetCursorScreenPos();
+  auto spaces = ImGui::GetContentRegionAvail();
+  if (spaces.x != width || spaces.y != height) {
+    ResizeFrameBuffer(spaces.x, spaces.y);
+  }
+
+  camera->width = width;
+  camera->height = height;
+  camera->UpdateDirection();
+  glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+  glViewport(0, 0, width, height);
+  glEnable(GL_DEPTH_TEST);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  glClearDepth(1.0f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  camera->Render();
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  Engine::Application::GetInstance().ResetViewport();
+  ImGui::GetWindowDrawList()->AddImage(
+      (ImTextureRef)colorTex, cursorpos,
+      ImVec2(cursorpos.x + width, cursorpos.y + height), ImVec2(0, 1),
+      ImVec2(1, 0));
+
+  if (ImGui::IsWindowHovered()) {
     if (ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
       Engine::Application::GetInstance().DisableCursor();
+      looking = true;
     }
+  }
+  if (looking) {
+    auto *mouse = Engine::Application::GetInstance().mouse;
+    auto relative_move = mouse->GetRelativePos();
     if (ImGui::IsMouseDown(ImGuiMouseButton_Right)) {
       camera->yaw += relative_move.x * sensitivity;
       camera->pitch -= relative_move.y * sensitivity;
@@ -98,37 +124,9 @@ void SceneWindow::Render() {
       }
     } else if (ImGui::IsMouseReleased(ImGuiMouseButton_Right)) {
       Engine::Application::GetInstance().EnableCursor();
-    }
-
-    camera->width = width;
-    camera->height = height;
-    camera->UpdateDirection();
-  }
-  auto cursorpos = ImGui::GetCursorScreenPos();
-  auto spaces = ImGui::GetContentRegionAvail();
-  if (spaces.x != width || spaces.y != height) {
-    ResizeFrameBuffer(spaces.x, spaces.y);
-  }
-  glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-  glViewport(0, 0, width, height);
-  glEnable(GL_DEPTH_TEST);
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-  glClearDepth(1.0f);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  auto &world = Engine::Application::GetInstance().GetWorld();
-  for (auto entity : world.GetEntities()) {
-    auto* camera_component = world.GetComponent<Engine::Component::Camera>(entity);
-    if (camera_component != nullptr) {
-      camera = camera_component;
-      camera->Render();
+      looking = false;
     }
   }
-  glBindFramebuffer(GL_FRAMEBUFFER, 0);
-  Engine::Application::GetInstance().ResetViewport();
-  ImGui::GetWindowDrawList()->AddImage(
-      (ImTextureRef)colorTex, cursorpos,
-      ImVec2(cursorpos.x + width, cursorpos.y + height), ImVec2(0, 1),
-      ImVec2(1, 0));
 }
 
 void SceneWindow::Close() { isopen = false; }
