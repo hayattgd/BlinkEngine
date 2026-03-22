@@ -16,6 +16,6 @@ public:
 
 private:
   bool isopen = true;
-  inline static Engine::ECS::Entity selected_entity = -1;
+  inline static Engine::ECS::Entity selected_entity = 0;
 };
 } // namespace BlinkEngine::Editor::Window

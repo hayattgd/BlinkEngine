@@ -87,6 +87,6 @@ std::shared_ptr<IComponentStorage>& GetOrCreateComponentStorage()
       components;
   std::vector<Entity> freeEntities;
   std::vector<Entity> usedEntities;
-  Entity next;
+  Entity next = 1;
 };
 } // namespace BlinkEngine::Engine::ECS
