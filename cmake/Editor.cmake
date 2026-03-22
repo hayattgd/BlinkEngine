@@ -3,6 +3,7 @@ set(
   editor/src/main.cc
   editor/src/window/scenewindow.cc
   editor/src/window/worldwindow.cc
+  editor/src/window/propertywindow.cc
 )
 
 add_executable(BlinkEngine_Editor ${BLINKENGINE_EDITOR_SRC})

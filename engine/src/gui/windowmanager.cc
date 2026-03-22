@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "gui/iwindow.h"
 #include "imgui.h"
@@ -40,4 +41,6 @@ namespace BlinkEngine::Engine::Gui {
       windows.end()
     );
   }
+
+  std::vector<std::unique_ptr<IWindow>> &WindowManager::GetWindows() { return windows; }
 }
