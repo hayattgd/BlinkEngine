@@ -48,7 +48,7 @@ namespace BlinkEngine::Engine::Render {
     vert_shader = glCreateShader(GL_VERTEX_SHADER);
     std::string vert_src_str = ReadFile(vert);
     const char* vert_src = vert_src_str.c_str();
-    std::cout << "compiling: "<< vert << std::endl;
+    // std::cout << "compiling: "<< vert << std::endl;
     glShaderSource(vert_shader, 1, &vert_src, NULL);
     glCompileShader(vert_shader);
     if (!get_shader_compile_error(vert_shader)) {
@@ -60,7 +60,7 @@ namespace BlinkEngine::Engine::Render {
     frag_shader = glCreateShader(GL_FRAGMENT_SHADER);
     std::string frag_src_str = ReadFile(frag);
     const char* frag_src = frag_src_str.c_str();
-    std::cout << "compiling: "<< frag << std::endl;
+    // std::cout << "compiling: "<< frag << std::endl;
     glShaderSource(frag_shader, 1, &frag_src, NULL);
     glCompileShader(frag_shader);
     if (!get_shader_compile_error(frag_shader)) {
@@ -83,7 +83,7 @@ namespace BlinkEngine::Engine::Render {
     }
     glDeleteShader(vert_shader);
     glDeleteShader(frag_shader);
-    std::cout << "Shader id:" << shader_program << std::endl;
+    // std::cout << "Shader id:" << shader_program << std::endl;
     id = shader_program;
   }
 
