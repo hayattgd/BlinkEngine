@@ -51,6 +51,9 @@ void WorldWindow::Render() {
       }
       ImGui::EndMenu();
     }
+    if (ImGui::MenuItem("Delete")) {
+      world.DestroyEntity(selected_entity);
+    }
     ImGui::EndPopup();
   }
   if (ImGui::IsMouseReleased(ImGuiMouseButton_Right)) {
