@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
@@ -21,6 +22,8 @@ public:
   Entity NewEntity();
   void DestroyEntity(Entity entity);
   const std::vector<Entity> &GetEntities();
+  void SetName(Entity entity, std::string name);
+  const std::string &GetName(Entity entity);
   template <typename T> void AddComponent(Entity entity, T* component) {
     auto &storage = GetOrCreateComponentStorage<T>();
     if (!storage) {
@@ -64,6 +67,7 @@ std::shared_ptr<IComponentStorage>& GetOrCreateComponentStorage()
       components;
   std::vector<Entity> freeEntities;
   std::vector<Entity> usedEntities;
+  std::unordered_map<Entity, std::string> entityNames;
   Entity next = 1;
 };
 } // namespace BlinkEngine::Engine::ECS

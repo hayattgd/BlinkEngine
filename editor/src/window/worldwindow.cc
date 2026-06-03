@@ -61,8 +61,9 @@ void WorldWindow::Render() {
       ImGui::OpenPopup("right click");
     }
   }
+
   for (auto entity : world.GetEntities()) {
-    if (ImGui::Selectable(std::to_string(entity).c_str(), entity == selected_entity)) {
+    if (ImGui::Selectable(world.GetName(entity).c_str(), entity == selected_entity)) {
       selected_entity = entity;
     }
   }

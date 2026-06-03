@@ -2,6 +2,7 @@
 
 #include "ecs/entity.h"
 #include <algorithm>
+#include <string>
 
 namespace BlinkEngine::Engine::ECS {
 Entity World::NewEntity() {
@@ -15,6 +16,7 @@ Entity World::NewEntity() {
     entity = next++;
   }
 
+  SetName(entity, "NewEntity");
   return entity;
 }
 
@@ -27,5 +29,8 @@ void World::DestroyEntity(Entity entity) {
 }
 
 const std::vector<Entity> &World::GetEntities() { return usedEntities; }
+
+void World::SetName(Entity entity, std::string name) { entityNames[entity] = name; }
+const std::string &World::GetName(Entity entity) { return entityNames[entity]; }
 
 } // namespace BlinkEngine::Engine::ECS

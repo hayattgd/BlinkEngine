@@ -1,4 +1,5 @@
 #include "window/propertywindow.h"
+#include "application.h"
 #include "imgui.h"
 #include "window/worldwindow.h"
 #include <string>
@@ -15,7 +16,7 @@ PropertyWindow::~PropertyWindow() {
 const char *PropertyWindow::GetName() { return "Property"; }
 
 void PropertyWindow::Render() {
-  ImGui::Text("%s", std::to_string(WorldWindow::GetSelectedEntity()).c_str());
+  ImGui::Text("%s", Engine::Application::GetInstance().GetWorld().GetName(WorldWindow::GetSelectedEntity()).c_str());
 }
 
 void PropertyWindow::Close() { isopen = false; }
