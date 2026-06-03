@@ -19,9 +19,11 @@ Entity World::NewEntity() {
 }
 
 void World::DestroyEntity(Entity entity) {
-  freeEntities.push_back(entity);
-  usedEntities.erase(
-      std::find(usedEntities.begin(), usedEntities.end(), entity));
+  auto entity_index = std::find(usedEntities.begin(), usedEntities.end(), entity);
+  if (entity_index != usedEntities.end()) {
+    freeEntities.push_back(entity);
+    usedEntities.erase(entity_index);
+  }
 }
 
 const std::vector<Entity> &World::GetEntities() { return usedEntities; }
