@@ -5,6 +5,7 @@
 #include "component/camera.h"
 #include "component/meshrenderer.h"
 #include "default.h"
+#include "ecs/entity.h"
 #include "glm/ext/vector_float3.hpp"
 #include "imgui.h"
 
@@ -30,7 +31,9 @@ void AddMesh(Engine::ECS::World& world, const std::string& data) {
   auto *shader = new Engine::Render::Shader("res/default.vert", "res/simple.frag");
   shader->Compile();
   meshrenderer->SetShader(shader);
-  world.AddComponent(world.NewEntity(), meshrenderer);
+  Engine::ECS::Entity entity = world.NewEntity();
+  world.AddComponent(entity, meshrenderer);
+  world.SetName(entity, "Mesh");
 }
 
 void WorldWindow::Render() {
@@ -41,7 +44,9 @@ void WorldWindow::Render() {
     if (ImGui::BeginMenu("Add")) {
       if (ImGui::MenuItem("Camera")) {
 	auto *camera = new Engine::Component::Camera(glm::vec3(0, 0, 0), 0, 0, 60, 0.01f, 1000.0f);
-        world.AddComponent(world.NewEntity(), camera);
+        Engine::ECS::Entity entity = world.NewEntity();
+        world.AddComponent(entity, camera);
+        world.SetName(entity, "Camera");
       }
       if (ImGui::BeginMenu("Mesh")) {
         if (ImGui::MenuItem("Cube")) {
