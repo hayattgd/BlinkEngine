@@ -68,7 +68,11 @@ void WorldWindow::Render() {
   }
 
   for (auto entity : world.GetEntities()) {
-    if (ImGui::Selectable(world.GetName(entity).c_str(), entity == selected_entity)) {
+    std::string entity_name = world.GetName(entity);
+    if (entity_name == "") {
+      entity_name = std::string("##") + std::to_string(entity);
+    }
+    if (ImGui::Selectable(entity_name.c_str(), entity == selected_entity)) {
       selected_entity = entity;
     }
   }
