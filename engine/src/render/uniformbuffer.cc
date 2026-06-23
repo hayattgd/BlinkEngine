@@ -22,6 +22,10 @@ namespace BlinkEngine::Engine::Render {
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
   }
 
+  glm::uint32 UniformBuffer::ReserveBindingPoint() {
+    return last_binding_point++;
+  }
+
   glm::uint32 UniformBuffer::GetId() {
     return buf;
   }

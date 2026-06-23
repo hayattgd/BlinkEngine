@@ -28,8 +28,7 @@ Camera::Camera(glm::vec3 pos, float yaw, float pitch, float fov,
   this->nearPlane = nearPlane;
   this->farPlane = farPlane;
 
-  binding_point = last_binding_point;
-  last_binding_point++;
+  binding_point = Render::UniformBuffer::ReserveBindingPoint();
   this->ubo = new Render::UniformBuffer(sizeof(glm::mat4)*2, binding_point);
 }
 

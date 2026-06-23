@@ -32,6 +32,5 @@ private:
   glm::vec3 front;
   Render::UniformBuffer* ubo;
   glm::uint32 binding_point;
-  inline static glm::uint32 last_binding_point = 0;
 };
 } // namespace BlinkEngine::Engine::Component
